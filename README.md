@@ -10,3 +10,4 @@ Aplikasi terdiri dari:
 - Menu Pemilihan Makanan dan Minuman
 - Set Detail Pesanan Pembeli
 
+CATATAN : SETIAP FILE APLIKASI HARUS DILETAKKAN PADA FOLDER YANG BERNAMA mainapk

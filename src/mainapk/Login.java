@@ -30,9 +30,9 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        username = new khsmahasiswa.TextFieldCustom();
-        password = new khsmahasiswa.JPasswordCustom();
-        submitLogin = new khsmahasiswa.ButtonCustom();
+        username = new mainapk.TextFieldCustom();
+        password = new mainapk.JPasswordCustom();
+        submitLogin = new mainapk.ButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 

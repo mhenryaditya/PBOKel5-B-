@@ -180,9 +180,6 @@ public class Login extends javax.swing.JFrame {
             .addComponent(customPanelGradient1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        customPanelGradient1.setColor2(236, 89, 11);
-        customPanelGradient1.setColor1(240, 166, 18);
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 

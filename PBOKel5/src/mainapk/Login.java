@@ -1,6 +1,11 @@
 package mainapk;
 
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
@@ -9,13 +14,13 @@ public class Login extends javax.swing.JFrame {
         setTitle("Login Application - ABC Restaurant");
         setSize(getWidth() + 200, getHeight());
         setLocationRelativeTo(null);
-        
+
         // Set Favicon App
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/pct/logo-removebg-preview.png")));
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -138,6 +143,11 @@ public class Login extends javax.swing.JFrame {
         buttontoLogin.setBackground(new java.awt.Color(255, 153, 0));
         buttontoLogin.setText("Login");
         buttontoLogin.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        buttontoLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttontoLoginActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -178,7 +188,38 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
+
+    public void cekLogin(String username, String password) {
+        Connection vKoneksi = Koneksi.createKoneksi();
+        try {
+            Statement statement = vKoneksi.createStatement();
+            String sql = "select * from staff where username='" + username + "' and pass='" + password + "'";
+            ResultSet hasil = statement.executeQuery(sql);
+
+            boolean exist = false;
+            while (hasil.next()) {
+                exist = true;
+            }
+            if (exist == true) {
+//                MenuMakanan login = new MenuMakanan();
+//                login.show();
+                JOptionPane.showMessageDialog(null, "Login Berhasil");
+            } else {
+                JOptionPane.showMessageDialog(null, "Username atau password salah");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    private void buttontoLoginActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+        String userLog = username.getText();
+        String passLog = password.getText();
+        cekLogin(userLog, passLog);
+    }                                             
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -212,7 +253,7 @@ public class Login extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private mainapk.ButtonCustom buttontoLogin;
     private mainapk.JPanelCustom container;
     private mainapk.CustomPanelGradient customPanelGradient1;
@@ -227,5 +268,5 @@ public class Login extends javax.swing.JFrame {
     private mainapk.JPasswordCustom password;
     private mainapk.JPanelCustom right;
     private mainapk.TextFieldCustom username;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }

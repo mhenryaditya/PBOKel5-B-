@@ -229,9 +229,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private mainapk.JPanelCustom left;
     private javax.swing.JPanel mainForm;
-    private khsmahasiswa.JPasswordCustom password;
+    private mainapk.JPasswordCustom password;
     private mainapk.JPanelCustom right;
-    private khsmahasiswa.ButtonCustom submitLogin;
-    private khsmahasiswa.TextFieldCustom username;
+    private mainapk.ButtonCustom submitLogin;
+    private mainapk.TextFieldCustom username;
     // End of variables declaration//GEN-END:variables
 }

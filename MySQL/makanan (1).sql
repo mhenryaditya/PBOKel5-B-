@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2023 at 07:26 PM
+-- Generation Time: Dec 02, 2023 at 04:04 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -31,7 +31,7 @@ CREATE TABLE `makanan` (
   `IDMakanan` int(11) NOT NULL,
   `namaMakanan` varchar(30) NOT NULL,
   `stok` int(11) NOT NULL,
-  `harga` int(11) NOT NULL,
+  `hargaMakanan` int(11) DEFAULT NULL,
   `deskripsi` varchar(750) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -39,7 +39,7 @@ CREATE TABLE `makanan` (
 -- Dumping data for table `makanan`
 --
 
-INSERT INTO `makanan` (`IDMakanan`, `namaMakanan`, `stok`, `harga`, `deskripsi`) VALUES
+INSERT INTO `makanan` (`IDMakanan`, `namaMakanan`, `stok`, `hargaMakanan`, `deskripsi`) VALUES
 (1, 'Nasi Goreng Special', 50, 35000, 'Nasi goreng yang lezat dengan campuran daging ayam, udang, telur, dan sayuran, disajikan dengan irisan mentimun dan kerupuk'),
 (2, 'Sate Ayam Madura', 100, 25000, 'Sate ayam yang dibumbui dengan rempah khas Madura, disajikan dengan bumbu kacang dan lontong.'),
 (3, 'Rendang Daging', 46, 50000, 'Daging sapi yang dimasak dalam santan dan bumbu rempah-rempah kaya rasa, disajikan dengan nasi putih.'),

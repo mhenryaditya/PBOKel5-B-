@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2023 at 07:26 PM
+-- Generation Time: Dec 02, 2023 at 04:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,7 +42,22 @@ CREATE TABLE `riwayatpesanan` (
 
 INSERT INTO `riwayatpesanan` (`IDPesanan`, `IDMakanan`, `jumlahMakanan`, `IDMinuman`, `jumlahMinuman`, `totalHarga`) VALUES
 (1, 2, 3, 1, 6, 105000),
-(2, 3, 4, 2, 6, 248000);
+(2, 3, 4, 2, 6, 248000),
+(3, 7, 3, 1, 6, 210000);
+
+--
+-- Triggers `riwayatpesanan`
+--
+DELIMITER $$
+CREATE TRIGGER `hitung_total_harga` BEFORE INSERT ON `riwayatpesanan` FOR EACH ROW BEGIN
+DECLARE harga_makanan INT;
+DECLARE harga_minuman INT;
+	SELECT hargaMakanan INTO harga_makanan FROM makanan WHERE IDMakanan = NEW.IDMakanan;
+	SELECT hargaMinuman INTO harga_minuman FROM minuman WHERE IDMinuman = NEW.IDMinuman;
+	SET NEW.totalHarga = (harga_makanan * NEW.jumlahMakanan) + (harga_minuman * NEW.jumlahMinuman);
+END
+$$
+DELIMITER ;
 
 --
 -- Indexes for dumped tables
@@ -64,7 +79,7 @@ ALTER TABLE `riwayatpesanan`
 -- AUTO_INCREMENT for table `riwayatpesanan`
 --
 ALTER TABLE `riwayatpesanan`
-  MODIFY `IDPesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IDPesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

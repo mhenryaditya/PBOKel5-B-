@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2023 at 07:26 PM
+-- Generation Time: Dec 02, 2023 at 04:06 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -31,7 +31,7 @@ CREATE TABLE `minuman` (
   `IDMinuman` int(11) NOT NULL,
   `namaMakanan` varchar(50) NOT NULL,
   `stok` int(11) NOT NULL,
-  `harga` int(11) NOT NULL,
+  `hargaMinuman` int(11) DEFAULT NULL,
   `deskripsi` varchar(750) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -39,7 +39,7 @@ CREATE TABLE `minuman` (
 -- Dumping data for table `minuman`
 --
 
-INSERT INTO `minuman` (`IDMinuman`, `namaMakanan`, `stok`, `harga`, `deskripsi`) VALUES
+INSERT INTO `minuman` (`IDMinuman`, `namaMakanan`, `stok`, `hargaMinuman`, `deskripsi`) VALUES
 (1, 'Es Teh Manis', 520, 5000, 'Teh manis yang disajikan dingin dengan es batu.'),
 (2, 'Es Jeruk Segar', 350, 8000, 'Jeruk segar yang diperas dengan gula dan es, menyegarkan.'),
 (3, 'Wedang Jahe', 120, 10000, 'Minuman jahe hangat dengan tambahan gula dan rempah, cocok untuk menghangatkan tubuh.'),

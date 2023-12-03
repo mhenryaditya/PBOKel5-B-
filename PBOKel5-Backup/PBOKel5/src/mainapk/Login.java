@@ -226,9 +226,11 @@ public class Login extends javax.swing.JFrame {
             Statement statement = connect.createStatement();
             String sql = "SELECT * FROM staff";
             ResultSet hasil = statement.executeQuery(sql);
+            int id = 0;
             boolean cek = false;
             while (hasil.next()) {
                 if (hasil.getString("username").equals(username) && hasil.getString("pass").equals(password)) {
+                    id = hasil.getInt("IDStaff");
                     cek = true;
                     break;
                 } 
@@ -236,8 +238,9 @@ public class Login extends javax.swing.JFrame {
             if (cek) {
                 JOptionPane.showMessageDialog(null, "Login berhasil!");
                 // Application move to the Dashboard view
-                
-                
+                MainApplication main = new MainApplication(id);
+                main.setVisible(true);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Login gagal!\nUsername atau password salah.\nSilakan coba kembali!");
             }

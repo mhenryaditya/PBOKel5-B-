@@ -12,9 +12,9 @@ import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class Form_Home extends javax.swing.JPanel {
+public class Dashboard extends javax.swing.JPanel {
 
-    public Form_Home() {
+    public Dashboard() {
         initComponents();
         table1.fixTable(jScrollPane1);
         setOpaque(false);
@@ -47,6 +47,8 @@ public class Form_Home extends javax.swing.JPanel {
                 }
             }
         };
+        
+        // Add Data to Table
         table1.addRow(new ModelStudent(new ImageIcon(getClass().getResource("/com/raven/icon/profile.jpg")), "Jonh", "Male", "Java", 300).toRowTable(eventAction));
         table1.addRow(new ModelStudent(new ImageIcon(getClass().getResource("/com/raven/icon/profile1.jpg")), "Dara", "Male", "C++", 300).toRowTable(eventAction));
         table1.addRow(new ModelStudent(new ImageIcon(getClass().getResource("/com/raven/icon/profile2.jpg")), "Bora", "Male", "C#", 300).toRowTable(eventAction));
@@ -103,7 +105,6 @@ public class Form_Home extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         noticeBoard = new com.raven.swing.noticeboard.NoticeBoard();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -112,9 +113,9 @@ public class Form_Home extends javax.swing.JPanel {
 
         card1.setColorGradient(new java.awt.Color(211, 28, 215));
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 25)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(4, 72, 210));
-        jLabel1.setText("Dashboard / Home");
+        jLabel1.setText("Dashboard");
 
         card2.setBackground(new java.awt.Color(10, 30, 214));
         card2.setColorGradient(new java.awt.Color(72, 111, 252));
@@ -129,13 +130,8 @@ public class Form_Home extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(76, 76, 76));
-        jLabel2.setText("Notice Board");
+        jLabel2.setText("Tata Cara Penggunaan Aplikasi");
         jLabel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-
-        jLabel3.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(105, 105, 105));
-        jLabel3.setText("Simple Miglayout API Doc");
-        jLabel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
 
         jLabel4.setOpaque(true);
 
@@ -149,9 +145,7 @@ public class Form_Home extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(noticeBoard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                        .addComponent(jLabel2)
                         .addGap(0, 257, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -160,12 +154,10 @@ public class Form_Home extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(15, 15, 15)
-                .addComponent(jLabel3)
-                .addGap(9, 9, 9)
+                .addGap(10, 10, 10)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(noticeBoard, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(noticeBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -269,7 +261,6 @@ public class Form_Home extends javax.swing.JPanel {
     private com.raven.component.Card card4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;

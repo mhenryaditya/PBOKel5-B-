@@ -1,11 +1,14 @@
-package com.raven.main;
+package mainapk;
 
+import com.raven.main.*;
 import com.raven.component.Header;
 import com.raven.component.Menu;
+import com.raven.dialog.Message;
 import com.raven.event.EventMenuSelected;
 import com.raven.event.EventShowPopupMenu;
 import com.raven.form.MenuMakanan;
 import com.raven.form.Dashboard;
+import com.raven.form.EntryPembelian;
 import com.raven.form.MainForm;
 import com.raven.swing.MenuItem;
 import com.raven.swing.PopupMenu;
@@ -14,40 +17,87 @@ import com.raven.swing.icon.IconFontSwing;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
-public class Main extends javax.swing.JFrame {
+public class MainApplication extends javax.swing.JFrame {
 
     private MigLayout layout;
     private Menu menu;
     private Header header;
     private MainForm main;
     private Animator animator;
+    private int idStaff;
+    private Connection connect;
 
-    public Main() {
+    public MainApplication(int id) {
+        idStaff = id;
+        this.connect = TrialConnect.createConnection();
         initComponents();
+        setSize(getWidth() + 200, getHeight());
+        setLocationRelativeTo(null);
         init();
+    }
+    
+    String getNameDb(){
+        try {
+            Statement statement = connect.createStatement();
+//            System.out.println(statement);
+            String sql = "SELECT namaStaff FROM staff WHERE IDStaff = '" + idStaff + "'";
+            ResultSet hasil = statement.executeQuery(sql);
+            String nama = "";
+            while(hasil.next()){
+                nama = hasil.getString("namaStaff");
+            }
+            return nama;
+        } catch (SQLException ex) {
+            return ex.toString();
+        }
     }
 
     private void init() {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         bg.setLayout(layout);
         menu = new Menu();
-//        header = new Header();
+        String name = getNameDb();
+        try {
+            header = new Header(name);
+        } catch (Exception e) {
+            System.out.println("err");
+            System.exit(0);
+        }
         main = new MainForm();
         menu.addEvent(new EventMenuSelected() {
             @Override
             public void menuSelected(int menuIndex, int subMenuIndex) {
                 System.out.println("Menu Index : " + menuIndex + " SubMenu Index " + subMenuIndex);
-                if (menuIndex == 0) {
-                    if (subMenuIndex == 0) {
+                switch (menuIndex) {
+                    case 0:
+                        // To dashboard
                         main.showForm(new Dashboard());
-                    } else if (subMenuIndex == 1) {
-                        main.showForm(new MenuMakanan());
-                    }
+                        break;
+                    case 1:
+                        // To Each Menu of Menu Pembelian
+                        if (subMenuIndex == 0) {
+                            main.showForm(new MenuMakanan());
+                        } else if (subMenuIndex == 1) {
+                            main.showForm(new MenuMinuman());
+                        } else {
+                            main.showForm(new EntryPembelian());
+                        }
+                        break;
+                    default:
+                        boolean exit = showMessage("Apakah Anda yakin untuk keluar?");
+                        if(exit){
+                            System.exit(0);
+                        }
+                        break;
                 }
             }
         });
@@ -55,15 +105,15 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void showPopup(Component com) {
                 MenuItem item = (MenuItem) com;
-                PopupMenu popup = new PopupMenu(Main.this, item.getIndex(), item.getEventSelected(), item.getMenu().getSubMenu());
-                int x = Main.this.getX() + 52;
-                int y = Main.this.getY() + com.getY() + 86;
+                PopupMenu popup = new PopupMenu(MainApplication.this, item.getIndex(), item.getEventSelected(), item.getMenu().getSubMenu());
+                int x = MainApplication.this.getX() + 52;
+                int y = MainApplication.this.getY() + com.getY() + 86;
                 popup.setLocation(x, y);
                 popup.setVisible(true);
             }
         });
         menu.initMenuItem();
-        bg.add(menu, "w 230!, spany 2");    // Span Y 2cell
+        bg.add(menu, "w 300!, spany 2");    // Span Y 2cell
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");
         TimingTarget target = new TimingTargetAdapter() {
@@ -71,9 +121,9 @@ public class Main extends javax.swing.JFrame {
             public void timingEvent(float fraction) {
                 double width;
                 if (menu.isShowMenu()) {
-                    width = 60 + (170 * (1f - fraction));
+                    width = 150 + (150 * (1f - fraction));
                 } else {
-                    width = 60 + (170 * fraction);
+                    width = 150 + (150 * fraction);
                 }
                 layout.setComponentConstraints(menu, "w " + width + "!, spany2");
                 menu.revalidate();
@@ -106,6 +156,14 @@ public class Main extends javax.swing.JFrame {
         IconFontSwing.register(GoogleMaterialDesignIcons.getIconFont());
         //  Start with this form
         main.showForm(new Dashboard());
+        
+        
+    }
+    
+    private boolean showMessage(String message) {
+        Message obj = new Message(Main.getFrames()[0], true);
+        obj.showMessage(message);
+        return obj.isOk();
     }
 
     @SuppressWarnings("unchecked")
@@ -160,23 +218,25 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Main().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

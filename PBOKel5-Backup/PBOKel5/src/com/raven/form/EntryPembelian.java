@@ -1,8 +1,8 @@
 package com.raven.form;
 
-public class Form1 extends javax.swing.JPanel {
+public class EntryPembelian extends javax.swing.JPanel {
 
-    public Form1() {
+    public EntryPembelian() {
         initComponents();
         setOpaque(false);
     }

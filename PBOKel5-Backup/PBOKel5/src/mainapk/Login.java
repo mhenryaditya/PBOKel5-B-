@@ -242,7 +242,7 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Login gagal!\nUsername atau password salah.\nSilakan coba kembali!");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Kesalahan!\nSilakan cek kembali kualitas perintah SQL!\nError Log : " + ex);
+            JOptionPane.showMessageDialog(null, "Kesalahan!\nError Log : " + ex);
         }
     }
     

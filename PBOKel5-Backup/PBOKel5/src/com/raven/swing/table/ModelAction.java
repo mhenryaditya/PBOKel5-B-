@@ -1,14 +1,14 @@
 package com.raven.swing.table;
 
-import com.raven.model.ModelStudent;
+import com.raven.model.ModelBuyer;
 
 public class ModelAction {
 
-    public ModelStudent getStudent() {
+    public ModelBuyer getStudent() {
         return student;
     }
 
-    public void setStudent(ModelStudent student) {
+    public void setStudent(ModelBuyer student) {
         this.student = student;
     }
 
@@ -20,14 +20,11 @@ public class ModelAction {
         this.event = event;
     }
 
-    public ModelAction(ModelStudent student, EventAction event) {
+    public ModelAction(ModelBuyer student, EventAction event) {
         this.student = student;
         this.event = event;
     }
 
-    public ModelAction() {
-    }
-
-    private ModelStudent student;
+    private ModelBuyer student;
     private EventAction event;
 }

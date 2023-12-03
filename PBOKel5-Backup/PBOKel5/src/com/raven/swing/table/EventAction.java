@@ -1,10 +1,10 @@
 package com.raven.swing.table;
 
-import com.raven.model.ModelStudent;
+import com.raven.model.ModelBuyer;
 
 public interface EventAction {
 
-    public void delete(ModelStudent student);
+    public void delete(ModelBuyer buyer);
 
-    public void update(ModelStudent student);
+    public void update(ModelBuyer buyer);
 }

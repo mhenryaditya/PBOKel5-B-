@@ -1,6 +1,13 @@
 package mainapk;
 
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
@@ -138,6 +145,19 @@ public class Login extends javax.swing.JFrame {
         buttontoLogin.setBackground(new java.awt.Color(255, 153, 0));
         buttontoLogin.setText("Login");
         buttontoLogin.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        buttontoLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                buttontoLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                buttontoLoginMouseExited(evt);
+            }
+        });
+        buttontoLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttontoLoginActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -180,6 +200,52 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttontoLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttontoLoginMouseEntered
+        buttontoLogin.setBackground(new Color(252, 176, 73));
+        setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_buttontoLoginMouseEntered
+
+    private void buttontoLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttontoLoginMouseExited
+        buttontoLogin.setBackground(new Color(255,153,0));
+        setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_buttontoLoginMouseExited
+
+    private void buttontoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttontoLoginActionPerformed
+        String usr = username.getText();
+        char[] pass = password.getPassword();
+        String password = "";
+        for (char i : pass){
+            password += i;
+        }
+        toLogin(usr, password);
+    }//GEN-LAST:event_buttontoLoginActionPerformed
+
+    void toLogin(String username, String password){
+        Connection connect = TrialConnect.createConnection();
+        try {
+            Statement statement = connect.createStatement();
+            String sql = "SELECT * FROM stff";
+            ResultSet hasil = statement.executeQuery(sql);
+            boolean cek = false;
+            while (hasil.next()) {
+                if (hasil.getString("username").equals(username) && hasil.getString("pass").equals(password)) {
+                    cek = true;
+                    break;
+                } 
+            }
+            if (cek) {
+                JOptionPane.showMessageDialog(null, "Login berhasil!");
+                // Application move to the Dashboard view
+                
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Login gagal!\nUsername atau password salah.\nSilakan coba kembali!");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Kesalahan!\nSilakan cek kembali kualitas perintah SQL!\nError Log : " + ex);
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

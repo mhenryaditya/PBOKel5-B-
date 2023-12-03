@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class TrialConnect {
 
-    static Connection conn;
+    public static Connection conn;
 
-    static Connection createConnection() {
+    public static Connection createConnection() {
         String url = "jdbc:mysql://localhost:3306/database_pbo", user = "root", pass = "";
         if (conn == null) {
             try {

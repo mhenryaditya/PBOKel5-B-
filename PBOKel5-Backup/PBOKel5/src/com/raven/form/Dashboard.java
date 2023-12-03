@@ -1,5 +1,6 @@
 package com.raven.form;
 
+import com.raven.dialog.FormEditRiwayat;
 import com.raven.dialog.Message;
 import com.raven.main.Main;
 import com.raven.model.ModelCard;
@@ -8,7 +9,15 @@ import com.raven.swing.icon.GoogleMaterialDesignIcons;
 import com.raven.swing.icon.IconFontSwing;
 import com.raven.swing.table.EventAction;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
+import javax.swing.JOptionPane;
+import mainapk.TrialConnect;
 
 public class Dashboard extends javax.swing.JPanel {
 
@@ -28,42 +37,86 @@ public class Dashboard extends javax.swing.JPanel {
         EventAction eventAction = new EventAction() {
             @Override
             public void delete(ModelBuyer buyer) {
-                if (showMessage("Apakah Anda yakin untuk menghapus data beriku: " + buyer.getName())) {
-                    System.out.println("User click OK");
+                if (showMessage(("Apakah Anda yakin untuk menghapus data tersebut?"), GoogleMaterialDesignIcons.WARNING)) {
                     // Trigger proses delete data to database
-                } else {
-                    System.out.println("User click Cancel");
+                    try {
+                        Connection connect = TrialConnect.createConnection();
+                        Statement statement = connect.createStatement();
+                        String sql = "DELETE FROM pembeli WHERE id_pembeli = '" + getId(buyer.getName()) + "'";
+                        boolean result = statement.execute(sql);
+                        if (result) {
+                            JOptionPane.showMessageDialog(null, "Sukses!\nData berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Kesalahan sintaks SQL!", "ERROR SQL", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
 
             @Override
             public void update(ModelBuyer buyer) {
-                if (showMessage("Update Student : " + buyer.getName())) {
-                    // Trigger proses update data to database
-                    System.out.println("User click OK");
-                } else {
-                    System.out.println("User click Cancel");
-                }
+                // Trigger proses update data to database
+                FormEditRiwayat edit = new FormEditRiwayat(Main.getFrames()[0], true, getId(buyer.getName()));
+                edit.showMessage();
             }
         };
-        
+
         // Add Data to Table
+        // Use inner join table riwayat pesanan to pembeli (Name, Gender, No.Nota, Date, Food or Baverage, Quantity, Total Price)
+        // These are the examples of Adding Data to Table Row by using Java sintax
         table1.addRow(new ModelBuyer("Umi Habitaty", "Woman", "E1101-C2001", "23-12-2020", "Ayam Goreng", 2, 55000).toRowTable(eventAction));
         table1.addRow(new ModelBuyer("Mama Habibie", "Woman", "E1202-C2002", "23-12-2020", "Ayam Goreng", 2, 55000).toRowTable(eventAction));
+    }
+    
+    int getId(String name){
+        Connection connect = TrialConnect.createConnection();
+        int id = -1;
+        try {
+            Statement statement = connect.createStatement();
+            String sql = "SELECT id_pembeli FROM pembeli WHERE nama_pembeli = '" + name + "'";
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                id = result.getInt("id_pembeli");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Kesalahan sintaks SQL!", "ERROR SQL", JOptionPane.ERROR_MESSAGE);
+        }
+        return id;
+    }
 
+    int getTotal(String nama) {
+        Connection connect = TrialConnect.createConnection();
+        try {
+            nama = nama.toLowerCase();
+            Statement statement = connect.createStatement();
+            String sql = null;
+            if (nama.equals("makanan") || nama.equals("minuman")) {
+                sql = "SELECT SUM(stok) AS total FROM " + nama;
+            } else {
+                sql = "SELECT SUM(totalHarga) AS total FROM " + nama;
+            }
+            ResultSet result = statement.executeQuery(sql);
+            int sum = 0;
+            while (result.next()) {
+                sum = result.getInt("total");
+            }
+            return sum;
+        } catch (SQLException ex) {
+            return -1;
+        }
     }
 
     private void initCardData() {
         Icon icon1 = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.SHOPPING_BASKET, 60, new Color(255, 255, 255, 100), new Color(255, 255, 255, 100));
-        card1.setData(new ModelCard("Total Stok Makanan", 0, 0, icon1));
+        card1.setData(new ModelCard("Total Stok Makanan", getTotal("makanan"), 0, icon1));
         Icon icon2 = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.SHOPPING_CART, 60, new Color(255, 255, 255, 100), new Color(255, 255, 255, 100));
-        card2.setData(new ModelCard("Total Stok Minuman", 0, 0, icon2));
+        card2.setData(new ModelCard("Total Stok Minuman", getTotal("minuman"), 0, icon2));
         Icon icon3 = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.MONETIZATION_ON, 60, new Color(255, 255, 255, 100), new Color(255, 255, 255, 100));
-        card3.setData(new ModelCard("Saldo", 3000, 0, icon3));
+        card3.setData(new ModelCard("Saldo", getTotal("riwayatpesanan"), 0, icon3));
     }
-    
-    private boolean showMessage(String message) {
-        Message obj = new Message(Main.getFrames()[0], true);
+
+    private boolean showMessage(String message, GoogleMaterialDesignIcons icon) {
+        Message obj = new Message(Main.getFrames()[0], true, icon);
         obj.showMessage(message);
         return obj.isOk();
     }

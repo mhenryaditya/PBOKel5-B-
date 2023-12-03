@@ -4,12 +4,12 @@ import com.raven.model.ModelBuyer;
 
 public class ModelAction {
 
-    public ModelBuyer getStudent() {
-        return student;
+    public ModelBuyer getBuyer() {
+        return buyer;
     }
 
-    public void setStudent(ModelBuyer student) {
-        this.student = student;
+    public void setBuyer(ModelBuyer buyer) {
+        this.buyer = buyer;
     }
 
     public EventAction getEvent() {
@@ -20,11 +20,11 @@ public class ModelAction {
         this.event = event;
     }
 
-    public ModelAction(ModelBuyer student, EventAction event) {
-        this.student = student;
+    public ModelAction(ModelBuyer buyer, EventAction event) {
+        this.buyer = buyer;
         this.event = event;
     }
 
-    private ModelBuyer student;
+    private ModelBuyer buyer;
     private EventAction event;
 }

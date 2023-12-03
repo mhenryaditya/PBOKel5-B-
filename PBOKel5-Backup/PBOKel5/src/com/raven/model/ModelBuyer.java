@@ -2,7 +2,6 @@ package com.raven.model;
 
 import com.raven.swing.table.EventAction;
 import com.raven.swing.table.ModelAction;
-import java.text.DecimalFormat;
 
 public class ModelBuyer {
 

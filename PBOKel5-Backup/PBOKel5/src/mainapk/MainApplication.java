@@ -6,15 +6,17 @@ import com.raven.component.Menu;
 import com.raven.dialog.Message;
 import com.raven.event.EventMenuSelected;
 import com.raven.event.EventShowPopupMenu;
-import com.raven.form.MenuMakanan;
 import com.raven.form.Dashboard;
-import com.raven.form.EntryPembelian;
+import com.raven.form.FormMakanan;
+import com.raven.form.FormMinuman;
+import com.raven.form.FormPembelian;
 import com.raven.form.MainForm;
 import com.raven.swing.MenuItem;
 import com.raven.swing.PopupMenu;
 import com.raven.swing.icon.GoogleMaterialDesignIcons;
 import com.raven.swing.icon.IconFontSwing;
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -37,6 +39,7 @@ public class MainApplication extends javax.swing.JFrame {
     private Connection connect;
 
     public MainApplication(int id) {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/pct/logo-removebg-preview.png")));
         idStaff = id;
         this.connect = TrialConnect.createConnection();
         initComponents();
@@ -48,7 +51,6 @@ public class MainApplication extends javax.swing.JFrame {
     String getNameDb(){
         try {
             Statement statement = connect.createStatement();
-//            System.out.println(statement);
             String sql = "SELECT namaStaff FROM staff WHERE IDStaff = '" + idStaff + "'";
             ResultSet hasil = statement.executeQuery(sql);
             String nama = "";
@@ -85,17 +87,23 @@ public class MainApplication extends javax.swing.JFrame {
                     case 1:
                         // To Each Menu of Menu Pembelian
                         if (subMenuIndex == 0) {
-                            main.showForm(new MenuMakanan());
+                            main.showForm(new FormMakanan());
                         } else if (subMenuIndex == 1) {
-                            main.showForm(new MenuMinuman());
-                        } else {
-                            main.showForm(new EntryPembelian());
+                            main.showForm(new FormMinuman());
+                        } else if (subMenuIndex == 2) {
+                            main.showForm(new FormPembelian());
                         }
+                        break;
+                    case 2:
+                        break;
+                    case 3:
                         break;
                     default:
                         boolean exit = showMessage("Apakah Anda yakin untuk keluar?");
                         if(exit){
-                            System.exit(0);
+                            Login logback = new Login();
+                            logback.setVisible(true);
+                            dispose();
                         }
                         break;
                 }
@@ -113,7 +121,7 @@ public class MainApplication extends javax.swing.JFrame {
             }
         });
         menu.initMenuItem();
-        bg.add(menu, "w 300!, spany 2");    // Span Y 2cell
+        bg.add(menu, "w 230!, spany 2");    // Span Y 2cell
         bg.add(header, "h 50!, wrap");
         bg.add(main, "w 100%, h 100%");
         TimingTarget target = new TimingTargetAdapter() {
@@ -121,9 +129,9 @@ public class MainApplication extends javax.swing.JFrame {
             public void timingEvent(float fraction) {
                 double width;
                 if (menu.isShowMenu()) {
-                    width = 150 + (150 * (1f - fraction));
+                    width = 60 + (170 * (1f - fraction));
                 } else {
-                    width = 150 + (150 * fraction);
+                    width = 60 + (170 * fraction);
                 }
                 layout.setComponentConstraints(menu, "w " + width + "!, spany2");
                 menu.revalidate();
@@ -161,7 +169,7 @@ public class MainApplication extends javax.swing.JFrame {
     }
     
     private boolean showMessage(String message) {
-        Message obj = new Message(Main.getFrames()[0], true);
+        Message obj = new Message(Main.getFrames()[0], true, GoogleMaterialDesignIcons.WARNING);
         obj.showMessage(message);
         return obj.isOk();
     }

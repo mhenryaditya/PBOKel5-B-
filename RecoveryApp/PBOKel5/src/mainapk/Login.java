@@ -224,7 +224,7 @@ public class Login extends javax.swing.JFrame {
         Connection connect = TrialConnect.createConnection();
         try {
             Statement statement = connect.createStatement();
-            String sql = "SELECT * FROM stff";
+            String sql = "SELECT * FROM staff";
             ResultSet hasil = statement.executeQuery(sql);
             boolean cek = false;
             while (hasil.next()) {

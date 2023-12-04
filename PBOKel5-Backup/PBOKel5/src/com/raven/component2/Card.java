@@ -1,7 +1,9 @@
 package com.raven.component2;
 
-import com.raven.form.MainForm_1;
+import com.raven.dialog.FormDetailProduk;
 import com.raven.form.FormPembelian;
+import com.raven.form.MainForm;
+import com.raven.main.Main;
 import com.raven.model2.Model_Card;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,7 +22,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
-public class Card extends javax.swing.JPanel {
+public class Card extends javax.swing.JPanel{
 
     private final Model_Card data;
     private final Timer timer;
@@ -28,10 +30,13 @@ public class Card extends javax.swing.JPanel {
     private final CardDescription cardDescription;
     private int y = 140;
     private int speed = 2;
+    private int idStaff;
     private boolean showing = false;
 
-    public Card(Model_Card data) {
+    public Card(Model_Card data, MainForm main, String[] arr, int idStaff) {
+        
         this.data = data;
+        this.idStaff = idStaff;
         initComponents();
 
         setOpaque(false);
@@ -73,8 +78,8 @@ public class Card extends javax.swing.JPanel {
                 timer.start();
             }
         });
+        
         addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseEntered(MouseEvent me) {
                 showing = true;
@@ -86,7 +91,20 @@ public class Card extends javax.swing.JPanel {
             public void mouseExited(MouseEvent me) {
                 timerStop.start();
             }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(showMessage(arr)){
+                    main.showForm(new FormPembelian(arr, main, idStaff));
+                }
+            }
         });
+    }
+    
+    private boolean showMessage(String[] arr) {
+        FormDetailProduk detailProduk = new FormDetailProduk(Main.getFrames()[0], true, arr);
+        detailProduk.showMessage();
+        return detailProduk.isOk();
     }
 
     @SuppressWarnings("unchecked")
@@ -133,6 +151,9 @@ public class Card extends javax.swing.JPanel {
     private Image toImage(Icon icon) {
         return ((ImageIcon) icon).getImage();
     }
+    
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

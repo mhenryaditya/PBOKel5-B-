@@ -9,7 +9,6 @@ import com.raven.event.EventShowPopupMenu;
 import com.raven.form.Dashboard;
 import com.raven.form.FormMakanan;
 import com.raven.form.FormMinuman;
-import com.raven.form.FormPembelian;
 import com.raven.form.MainForm;
 import com.raven.swing.MenuItem;
 import com.raven.swing.PopupMenu;
@@ -87,11 +86,9 @@ public class MainApplication extends javax.swing.JFrame {
                     case 1:
                         // To Each Menu of Menu Pembelian
                         if (subMenuIndex == 0) {
-                            main.showForm(new FormMakanan());
+                            main.showForm(new FormMakanan(main, idStaff));
                         } else if (subMenuIndex == 1) {
-                            main.showForm(new FormMinuman());
-                        } else if (subMenuIndex == 2) {
-                            main.showForm(new FormPembelian());
+                            main.showForm(new FormMinuman(main, idStaff));
                         }
                         break;
                     case 2:

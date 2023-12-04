@@ -40,4 +40,8 @@ public class Model_Card {
     private Icon icon;
     private String title;
     private String description;
+
+    public void addActionListener() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

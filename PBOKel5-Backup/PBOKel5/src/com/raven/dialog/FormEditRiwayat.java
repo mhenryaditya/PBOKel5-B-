@@ -1,7 +1,5 @@
 package com.raven.dialog;
 
-import com.raven.swing.icon.GoogleMaterialDesignIcons;
-import com.raven.swing.icon.IconFontSwing;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -53,12 +51,15 @@ public class FormEditRiwayat extends javax.swing.JDialog {
         animator = new Animator(200, target);
         animator.setResolution(0);
         animator.setAcceleration(0.5f);
-        
+
         this.id = id;
     }
 
     public void showMessage() {
         animator.start();
+        // Set text name 
+        
+        
         setVisible(true);
     }
 
@@ -68,11 +69,10 @@ public class FormEditRiwayat extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         lbMessage = new javax.swing.JLabel();
-        button2 = new com.raven.swing.Button();
-        button1 = new com.raven.swing.Button();
+        buttonOK = new com.raven.swing.Button();
+        buttonCancel = new com.raven.swing.Button();
         lbIcon = new javax.swing.JLabel();
         namaEdit = new mainapk.TextFieldCustom();
-        JKEdit = new mainapk.TextFieldCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -84,21 +84,21 @@ public class FormEditRiwayat extends javax.swing.JDialog {
         lbMessage.setForeground(new java.awt.Color(82, 82, 82));
         lbMessage.setText("Form Pengeditan Pembeli");
 
-        button2.setBackground(new java.awt.Color(0, 0, 255));
-        button2.setForeground(new java.awt.Color(255, 255, 255));
-        button2.setText("OK");
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        buttonOK.setBackground(new java.awt.Color(0, 0, 255));
+        buttonOK.setForeground(new java.awt.Color(255, 255, 255));
+        buttonOK.setText("OK");
+        buttonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                buttonOKActionPerformed(evt);
             }
         });
 
-        button1.setBackground(new java.awt.Color(255, 0, 51));
-        button1.setForeground(new java.awt.Color(255, 255, 255));
-        button1.setText("Cancel");
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        buttonCancel.setBackground(new java.awt.Color(255, 0, 51));
+        buttonCancel.setForeground(new java.awt.Color(255, 255, 255));
+        buttonCancel.setText("Cancel");
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                buttonCancelActionPerformed(evt);
             }
         });
 
@@ -107,9 +107,11 @@ public class FormEditRiwayat extends javax.swing.JDialog {
 
         namaEdit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         namaEdit.setLabelText("Nama");
-
-        JKEdit.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        JKEdit.setLabelText("Jenis Kelamin");
+        namaEdit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                namaEditKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,15 +121,14 @@ public class FormEditRiwayat extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lbIcon)
                         .addGap(18, 18, 18)
                         .addComponent(lbMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(namaEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JKEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(namaEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -137,14 +138,12 @@ public class FormEditRiwayat extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 0, 0)
                 .addComponent(namaEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(JKEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
 
@@ -163,42 +162,43 @@ public class FormEditRiwayat extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    // Create method return name from database pembeli (Make create connection inside of method), use id as where
+    
+    
+    private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         ok = true;
         // Send data to database
-        String namaUp = namaEdit.getText(), JKUp = JKEdit.getText();
-        if (namaUp.isEmpty() || JKUp.isEmpty()) {
+        String namaUp = namaEdit.getText();
+        if (namaUp.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Data tidak boleh ada yang kosong!", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            int jk = 0;
-            if (JKUp.toLowerCase().contains("laki")) {
-                jk = 1;
-            } else if (JKUp.toLowerCase().contains("eremp")) {
-                jk = 2;
-            } 
-            
-            if (jk == 0) {
-                JOptionPane.showMessageDialog(null, "Inputan jenis kelamin salah!", "Galat Inputan", JOptionPane.ERROR_MESSAGE);
-            } else {
-                Connection connect = TrialConnect.createConnection();
-                try {
-                    Statement statement = connect.createStatement();
-                    String sql = "UPDATE pembeli SET nama_pembeli = '" + namaEdit + "' , jenis_kelamin = '" + jk + "' WHERE id_pembeli = '" + id + "'";
-                    boolean result = statement.execute(sql);
-                    if (result) {
-                        JOptionPane.showMessageDialog(null, "Sukses!\nData berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Kesalahan sintaks SQL!", "ERROR CONNECTION", JOptionPane.ERROR_MESSAGE);
+            Connection connect = TrialConnect.createConnection();
+            try {
+                Statement statement = connect.createStatement();
+                String sql = "UPDATE pembeli SET nama_pembeli = '" + namaEdit + "' WHERE id_pembeli = '" + id + "'";
+                boolean result = statement.execute(sql);
+                if (result) {
+                    JOptionPane.showMessageDialog(null, "Sukses!\nData berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Kesalahan sintaks SQL!", "ERROR CONNECTION", JOptionPane.ERROR_MESSAGE);
             }
+
         }
         closeMenu();
-    }//GEN-LAST:event_button2ActionPerformed
+    }//GEN-LAST:event_buttonOKActionPerformed
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         closeMenu();
-    }//GEN-LAST:event_button1ActionPerformed
+    }//GEN-LAST:event_buttonCancelActionPerformed
+
+    private void namaEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_namaEditKeyPressed
+        // Trigger event when key pressed
+        // if getText name is empty or getText name equals return name method, disable button OK
+        // else turn on button OK
+        
+        
+    }//GEN-LAST:event_namaEditKeyPressed
 
     private void closeMenu() {
         if (animator.isRunning()) {
@@ -209,9 +209,8 @@ public class FormEditRiwayat extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private mainapk.TextFieldCustom JKEdit;
-    private com.raven.swing.Button button1;
-    private com.raven.swing.Button button2;
+    private com.raven.swing.Button buttonCancel;
+    private com.raven.swing.Button buttonOK;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbMessage;

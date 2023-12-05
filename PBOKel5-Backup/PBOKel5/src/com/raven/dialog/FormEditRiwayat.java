@@ -1,7 +1,9 @@
 package com.raven.dialog;
 
+import com.raven.form.Dashboard;
 import java.awt.Color;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -24,6 +26,7 @@ public class FormEditRiwayat extends javax.swing.JDialog {
     private final Animator animator;
     private boolean show = true;
     private int id;
+    private int kembali;
 
     public FormEditRiwayat(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
@@ -58,8 +61,8 @@ public class FormEditRiwayat extends javax.swing.JDialog {
     public void showMessage() {
         animator.start();
         // Set text name 
-        
-        
+        namaEdit.setText(getNama());
+
         setVisible(true);
     }
 
@@ -163,7 +166,20 @@ public class FormEditRiwayat extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     // Create method return name from database pembeli (Make create connection inside of method), use id as where
-    
+    String getNama() {
+        Connection connect = TrialConnect.createConnection();
+        try {
+            Statement statement = connect.createStatement();
+            String sql = "SELECT nama_pembeli FROM pembeli WHERE id_pembeli = '" + id + "'", text = "";
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()){
+                text = result.getString("nama_pembeli");
+            }
+            return text;
+        } catch (SQLException ex) {
+            return "";
+        }
+    }
     
     private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
         ok = true;
@@ -175,11 +191,9 @@ public class FormEditRiwayat extends javax.swing.JDialog {
             Connection connect = TrialConnect.createConnection();
             try {
                 Statement statement = connect.createStatement();
-                String sql = "UPDATE pembeli SET nama_pembeli = '" + namaEdit + "' WHERE id_pembeli = '" + id + "'";
-                boolean result = statement.execute(sql);
-                if (result) {
-                    JOptionPane.showMessageDialog(null, "Sukses!\nData berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-                }
+                String sql = "UPDATE pembeli SET nama_pembeli = '" + namaUp + "' WHERE id_pembeli = '" + id + "'";
+                statement.execute(sql);
+                JOptionPane.showMessageDialog(null, "Sukses!\nData berhasil diubah", "Sukses", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Kesalahan sintaks SQL!", "ERROR CONNECTION", JOptionPane.ERROR_MESSAGE);
             }
@@ -196,8 +210,8 @@ public class FormEditRiwayat extends javax.swing.JDialog {
         // Trigger event when key pressed
         // if getText name is empty or getText name equals return name method, disable button OK
         // else turn on button OK
-        
-        
+
+
     }//GEN-LAST:event_namaEditKeyPressed
 
     private void closeMenu() {

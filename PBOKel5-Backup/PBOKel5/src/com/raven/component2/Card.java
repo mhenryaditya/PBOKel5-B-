@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+import mainapk.MainApplication;
 
 public class Card extends javax.swing.JPanel{
 
@@ -33,7 +34,7 @@ public class Card extends javax.swing.JPanel{
     private int idStaff;
     private boolean showing = false;
 
-    public Card(Model_Card data, MainForm main, String[] arr, int idStaff) {
+    public Card(Model_Card data, MainForm main, String id, int idStaff, MainApplication mainApp) {
         
         this.data = data;
         this.idStaff = idStaff;
@@ -94,15 +95,15 @@ public class Card extends javax.swing.JPanel{
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if(showMessage(arr)){
-                    main.showForm(new FormPembelian(arr, main, idStaff));
+                if(showMessage(id)){
+                    main.showForm(new FormPembelian(id, main, idStaff, mainApp));
                 }
             }
         });
     }
     
-    private boolean showMessage(String[] arr) {
-        FormDetailProduk detailProduk = new FormDetailProduk(Main.getFrames()[0], true, arr);
+    private boolean showMessage(String id) {
+        FormDetailProduk detailProduk = new FormDetailProduk(Main.getFrames()[0], true, id);
         detailProduk.showMessage();
         return detailProduk.isOk();
     }

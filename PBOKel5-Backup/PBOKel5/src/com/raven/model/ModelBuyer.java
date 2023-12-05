@@ -13,14 +13,6 @@ public class ModelBuyer {
         this.name = name;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getNoNota() {
         return noNota;
     }
@@ -61,9 +53,8 @@ public class ModelBuyer {
         this.price = price;
     }
 
-    public ModelBuyer(String name, String gender, String noNota, String date, String pesanan, int count, int cPrice) {
+    public ModelBuyer(String name, String noNota, String date, String pesanan, int count, int cPrice) {
         this.name = name;
-        this.gender = gender;
         this.noNota = noNota;
         this.pesanan = pesanan;
         this.date = date;
@@ -72,7 +63,6 @@ public class ModelBuyer {
     }
 
     private String name;
-    private String gender;
     private String noNota;
     private String pesanan;
     private String date;
@@ -80,6 +70,6 @@ public class ModelBuyer {
     private int price;
 
     public Object[] toRowTable(EventAction event) {
-        return new Object[]{name, gender, noNota, date, pesanan, count, price, new ModelAction(this, event)};
+        return new Object[]{name, noNota, date, pesanan, count, price, new ModelAction(this, event)};
     }
 }

@@ -9,6 +9,7 @@ import com.raven.event.EventShowPopupMenu;
 import com.raven.form.Dashboard;
 import com.raven.form.FormMakanan;
 import com.raven.form.FormMinuman;
+import com.raven.form.KasManager;
 import com.raven.form.MainForm;
 import com.raven.swing.MenuItem;
 import com.raven.swing.PopupMenu;
@@ -36,6 +37,7 @@ public class MainApplication extends javax.swing.JFrame {
     private Animator animator;
     private int idStaff;
     private Connection connect;
+    private MainApplication mainApp;
 
     public MainApplication(int id) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/pct/logo-removebg-preview.png")));
@@ -45,6 +47,14 @@ public class MainApplication extends javax.swing.JFrame {
         setSize(getWidth() + 200, getHeight());
         setLocationRelativeTo(null);
         init();
+    }
+    
+    public void setMainAPP(MainApplication main){
+        mainApp = main;
+    }
+    
+    MainApplication getMainApp(){
+        return mainApp;
     }
     
     String getNameDb(){
@@ -81,19 +91,19 @@ public class MainApplication extends javax.swing.JFrame {
                 switch (menuIndex) {
                     case 0:
                         // To dashboard
-                        main.showForm(new Dashboard());
+                        main.showForm(new Dashboard(main));
                         break;
                     case 1:
                         // To Each Menu of Menu Pembelian
                         if (subMenuIndex == 0) {
-                            main.showForm(new FormMakanan(main, idStaff));
+                            main.showForm(new FormMakanan(main, idStaff, mainApp));
                         } else if (subMenuIndex == 1) {
-                            main.showForm(new FormMinuman(main, idStaff));
+                            main.showForm(new FormMinuman(main, idStaff, mainApp));
                         }
                         break;
                     case 2:
-                        break;
-                    case 3:
+                        // To Keuangan
+//                        main.showForm(new KasManager);
                         break;
                     default:
                         boolean exit = showMessage("Apakah Anda yakin untuk keluar?");
@@ -160,7 +170,7 @@ public class MainApplication extends javax.swing.JFrame {
         //  Init google icon font
         IconFontSwing.register(GoogleMaterialDesignIcons.getIconFont());
         //  Start with this form
-        main.showForm(new Dashboard());
+        main.showForm(new Dashboard(main));
         
         
     }

@@ -3,6 +3,12 @@ package com.raven.dialog;
 import com.raven.swing.icon.GoogleMaterialDesignIcons;
 import com.raven.swing.icon.IconFontSwing;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import mainapk.TrialConnect;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -20,10 +26,11 @@ public class FormDetailProduk extends javax.swing.JDialog {
     private boolean ok;
     private final Animator animator;
     private boolean show = true;
-    private String[] arr;
+    private String[] idSplit;
 
-    public FormDetailProduk(java.awt.Frame parent, boolean modal, String[] arr) {
+    public FormDetailProduk(java.awt.Frame parent, boolean modal, String id) {
         super(parent, modal);
+        setSize(getWidth(), getHeight());
         initComponents();
         setOpacity(0f);
         getContentPane().setBackground(Color.WHITE);
@@ -49,14 +56,31 @@ public class FormDetailProduk extends javax.swing.JDialog {
         animator.setResolution(0);
         animator.setAcceleration(0.5f);
         lbIcon.setIcon(IconFontSwing.buildIcon(GoogleMaterialDesignIcons.SHOPPING_BASKET, 60, new Color(254, 86, 96), new Color(113, 74, 67)));
-        this.arr = arr;
+        this.idSplit = id.split("-");
     }
 
     public void showMessage() {
         animator.start();
-        name.setText(arr[1]);
-        desk.setText(arr[4]);
-        stok.setText(arr[2]);
+        Connection connect = TrialConnect.createConnection();
+        try {
+            Statement statement = connect.createStatement();
+            ResultSet result = null;
+            if (idSplit[1].equals("m")) {
+                String sql = "SELECT * FROM makanan WHERE IDMakanan = '" + idSplit[0] + "'";
+                result = statement.executeQuery(sql);
+                result.next();
+                name.setText(result.getString("namaMakanan"));
+            } else {
+                String sql = "SELECT * FROM minuman WHERE IDMinuman = '" + idSplit[0] + "'";
+                result = statement.executeQuery(sql);
+                result.next();
+                name.setText(result.getString("namaMinuman"));
+            }
+            desk.setText(result.getString("deskripsi"));
+            stok.setText(result.getString("stok"));
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR SQL \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
         setVisible(true);
     }
 
@@ -113,11 +137,15 @@ public class FormDetailProduk extends javax.swing.JDialog {
 
         jLabel3.setText("Stok Ketersediaan");
 
+        name.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         name.setText("jLabel4");
 
+        stok.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         stok.setText("jLabel6");
 
         desk.setColumns(20);
+        desk.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        desk.setLineWrap(true);
         desk.setRows(5);
         desk.setWrapStyleWord(true);
         jScrollPane1.setViewportView(desk);
@@ -144,7 +172,7 @@ public class FormDetailProduk extends javax.swing.JDialog {
                     .addComponent(jScrollPane1)
                     .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(stok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

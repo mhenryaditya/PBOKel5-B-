@@ -239,6 +239,7 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Login berhasil!");
                 // Application move to the Dashboard view
                 MainApplication main = new MainApplication(id);
+                main.setMainAPP(main);
                 main.setVisible(true);
                 dispose();
             } else {

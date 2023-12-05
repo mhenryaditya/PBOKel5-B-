@@ -44,7 +44,7 @@ public class Main extends javax.swing.JFrame {
                 System.out.println("Menu Index : " + menuIndex + " SubMenu Index " + subMenuIndex);
                 if (menuIndex == 0) {
                     if (subMenuIndex == 0) {
-                        main.showForm(new Dashboard());
+//                        main.showForm(new Dashboard());
                     } else if (subMenuIndex == 1) {
                         main.showForm(new MenuMakanan());
                     }
@@ -105,7 +105,7 @@ public class Main extends javax.swing.JFrame {
         //  Init google icon font
         IconFontSwing.register(GoogleMaterialDesignIcons.getIconFont());
         //  Start with this form
-        main.showForm(new Dashboard());
+//        main.showForm(new Dashboard());
     }
 
     @SuppressWarnings("unchecked")

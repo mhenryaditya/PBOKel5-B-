@@ -68,13 +68,14 @@ public class Table extends JTable {
 
     @Override
     public TableCellEditor getCellEditor(int row, int col) {
-        if (col == 7) {
+        if (col == 6) {
             return new TableCellAction();
         } else {
             return super.getCellEditor(row, col);
         }
     }
 
+    
     public void addRow(Object[] row) {
         DefaultTableModel mod = (DefaultTableModel) getModel();
         mod.addRow(row);

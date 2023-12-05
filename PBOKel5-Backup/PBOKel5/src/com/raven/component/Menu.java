@@ -54,11 +54,10 @@ public class Menu extends javax.swing.JPanel {
     }
 
     public void initMenuItem() {
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/1.png")), "Dashboard"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/2.png")), "Detail Pemesanan", "Menu Makanan", "Menu Minuman", "Entry Pembelian"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/2.png")), "Keuangan", "Isi Saldo", "Tarik Saldo"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/13.png")), "About Us"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/com/raven/icon/14.png")), "Log Out"));
+        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/pct/to-do-list.png")), "Dashboard"));
+        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/pct/platter.png")), "Detail Pemesanan", "Menu Makanan", "Menu Minuman"));
+        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/pct/dollar.png")), "Keuangan"));
+        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/pct/logout.png")), "Log Out"));
     }
 
     private void addMenu(ModelMenu menu) {

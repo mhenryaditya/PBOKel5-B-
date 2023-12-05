@@ -3,9 +3,10 @@ package com.raven.form;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import javax.swing.border.EmptyBorder;
+import mainapk.MainApplication;
 
 public class MainForm extends javax.swing.JPanel {
-
+    
     public MainForm() {
         initComponents();
         setOpaque(false);

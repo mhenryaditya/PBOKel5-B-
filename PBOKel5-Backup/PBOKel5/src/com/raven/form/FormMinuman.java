@@ -8,15 +8,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.ImageIcon;
+import mainapk.MainApplication;
 import mainapk.TrialConnect;
 
 public class FormMinuman extends javax.swing.JPanel {
 
     private MainForm main;
     private int idStaff;
+    private MainApplication mainApp;
     
-    public FormMinuman(MainForm main, int idStaff) {
+    public FormMinuman(MainForm main, int idStaff, MainApplication mainApp) {
         this.main = main;
+        this.mainApp = mainApp;
         this.idStaff = idStaff;
         initComponents();
         init();
@@ -24,15 +27,15 @@ public class FormMinuman extends javax.swing.JPanel {
     private void init() {
         panel.setLayout(new WrapLayout(WrapLayout.LEADING));
         jScrollPane1.setVerticalScrollBar(new ScrollBar());
-        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es teh.png")), "Es Teh Manis", "Harga : \n       Rp." + String.valueOf(getPrice("Es Teh Manis")) + "\nStok : \n       " + String.valueOf(getStok("Es Teh Manis"))), main, getData("Es Teh Manis"), idStaff));
-        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es jeruk.png")), "Es Jeruk Segar", "Harga : \n       Rp." + String.valueOf(getPrice("Es Jeruk Segar")) + "\nStok : \n       " + String.valueOf(getStok("Es Jeruk Segar"))), main, getData("Es Jeruk Segar"), idStaff));
-        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/wedang jahe.png")), "Wedang Jahe", "Harga : \n       Rp." + String.valueOf(getPrice("Wedang Jahe")) + "\nStok : \n       " + String.valueOf(getStok("Wedang Jahe"))), main, getData("Wedang Jahe"), idStaff));
-        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es cincau hijau.png")), "Es Cincau Hijau", "Harga : \n       Rp." + String.valueOf(getPrice("Es Cincau Hijau")) + "\nStok : \n       " + String.valueOf(getStok("Es Cincau Hijau"))), main, getData("Es Cincau Hijau"), idStaff));
-        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/sekoteng.png")), "Sekoteng", "Harga : \n       Rp." + String.valueOf(getPrice("Sekoteng")) + "\nStok : \n       " + String.valueOf(getStok("Sekoteng"))), main, getData("Sekoteng"), idStaff));
-        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/bandrek.png")), "Bandrek", "Harga : \n       Rp." + String.valueOf(getPrice("Bandrek")) + "\nStok : \n       " + String.valueOf(getStok("Bandrek"))), main, getData("Bandrek"), idStaff));
-        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es Doger.png")), "Es Doger", "Harga : \n       Rp." + String.valueOf(getPrice("Es Doger")) + "\nStok : \n       " + String.valueOf(getStok("Es Doger"))), main, getData("Es Doger"), idStaff));
-        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es cendol.png")), "Es Cendol", "Harga : \n       Rp." + String.valueOf(getPrice("Es Cendol")) + "\nStok : \n       " + String.valueOf(getStok("Es Cendol"))), main, getData("Es Cendol"), idStaff));
-        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/teh tarik.png")), "Es Tarik", "Harga : \n       Rp." + String.valueOf(getPrice("Es Tarik")) + "\nStok : \n       " + String.valueOf(getStok("Es Tarik"))), main, getData("Es Tarik"), idStaff));
+        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es teh.png")), "Es Teh Manis", "Harga : \n       Rp." + String.valueOf(getPrice("Es Teh Manis")) + "\nStok : \n       " + String.valueOf(getStok("Es Teh Manis"))), main, getId("Es Teh Manis"), idStaff, mainApp));
+        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es jeruk.png")), "Es Jeruk Segar", "Harga : \n       Rp." + String.valueOf(getPrice("Es Jeruk Segar")) + "\nStok : \n       " + String.valueOf(getStok("Es Jeruk Segar"))), main, getId("Es Jeruk Segar"), idStaff, mainApp));
+        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/wedang jahe.png")), "Wedang Jahe", "Harga : \n       Rp." + String.valueOf(getPrice("Wedang Jahe")) + "\nStok : \n       " + String.valueOf(getStok("Wedang Jahe"))), main, getId("Wedang Jahe"), idStaff, mainApp));
+        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es cincau hijau.png")), "Es Cincau Hijau", "Harga : \n       Rp." + String.valueOf(getPrice("Es Cincau Hijau")) + "\nStok : \n       " + String.valueOf(getStok("Es Cincau Hijau"))), main, getId("Es Cincau Hijau"), idStaff, mainApp));
+        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/sekoteng.png")), "Sekoteng", "Harga : \n       Rp." + String.valueOf(getPrice("Sekoteng")) + "\nStok : \n       " + String.valueOf(getStok("Sekoteng"))), main, getId("Sekoteng"), idStaff, mainApp));
+        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/bandrek.png")), "Bandrek", "Harga : \n       Rp." + String.valueOf(getPrice("Bandrek")) + "\nStok : \n       " + String.valueOf(getStok("Bandrek"))), main, getId("Bandrek"), idStaff, mainApp));
+        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es Doger.png")), "Es Doger", "Harga : \n       Rp." + String.valueOf(getPrice("Es Doger")) + "\nStok : \n       " + String.valueOf(getStok("Es Doger"))), main, getId("Es Doger"), idStaff, mainApp));
+        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/es cendol.png")), "Es Cendol", "Harga : \n       Rp." + String.valueOf(getPrice("Es Cendol")) + "\nStok : \n       " + String.valueOf(getStok("Es Cendol"))), main, getId("Es Cendol"), idStaff, mainApp));
+        panel.add(new com.raven.component2.Card(new Model_Card(new ImageIcon(getClass().getResource("/fotoMenu/teh tarik.png")), "Teh Tarik", "Harga : \n       Rp." + String.valueOf(getPrice("Teh Tarik")) + "\nStok : \n       " + String.valueOf(getStok("Teh Tarik"))), main, getId("Teh Tarik"), idStaff, mainApp));
         panel.revalidate();
         panel.repaint();
     }
@@ -41,7 +44,7 @@ public class FormMinuman extends javax.swing.JPanel {
         Connection connect = TrialConnect.createConnection();
         try {
             Statement statement = connect.createStatement();
-            String sql = "SELECT stok FROM makanan WHERE namaMakanan = '" + nama + "'";
+            String sql = "SELECT stok FROM minuman WHERE namaMinuman = '" + nama + "'";
             ResultSet result = statement.executeQuery(sql);
             int stok = 0;
             while(result.next()){
@@ -57,11 +60,11 @@ public class FormMinuman extends javax.swing.JPanel {
         Connection connect = TrialConnect.createConnection();
         try {
             Statement statement = connect.createStatement();
-            String sql = "SELECT hargaMakanan FROM makanan WHERE namaMakanan = '" + nama + "'";
+            String sql = "SELECT hargaMinuman FROM minuman WHERE namaMinuman = '" + nama + "'";
             ResultSet result = statement.executeQuery(sql);
             int harga = 0;
             while(result.next()){
-                harga = result.getInt("stok");
+                harga = result.getInt("hargaMinuman");
             }
             return harga;
         } catch (SQLException e) {
@@ -69,21 +72,19 @@ public class FormMinuman extends javax.swing.JPanel {
         }
     }
 
-    String[] getData(String nama){
-        String[] data = new String[6];
+    String getId(String nama){
         Connection connect = TrialConnect.createConnection();
         try {
             Statement statement = connect.createStatement();
-            String sql = "SELECT * FROM makanan WHERE namaMakanan = '" + nama + "'";
+            String sql = "SELECT IDMinuman FROM minuman WHERE namaMinuman = '" + nama + "'";
             ResultSet result = statement.executeQuery(sql);
-            int i = 0;
+            String id = "";
             while(result.next()){
-                data[i] = result.getString(i);
+                id = result.getString("IDMinuman");
             }
-            data[5] = "minuman";
-            return data;
+            return (id + "-i");
         } catch (SQLException e) {
-            return data;
+            return "";
         }
     }
     
@@ -94,7 +95,12 @@ public class FormMinuman extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(null);
+
+        panel.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);

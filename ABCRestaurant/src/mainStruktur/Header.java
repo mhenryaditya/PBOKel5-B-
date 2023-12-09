@@ -20,7 +20,7 @@ public class Header extends javax.swing.JPanel {
     private void initComponents() {
 
         cmdMenu = new com.raven.swing.Button();
-        pic = new swing.ImageAvatar();
+        pic = new com.raven.swing.ImageAvatar();
         lbUserName = new javax.swing.JLabel();
         lbRole = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -79,6 +79,6 @@ public class Header extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbRole;
     private javax.swing.JLabel lbUserName;
-    private swing.ImageAvatar pic;
+    private com.raven.swing.ImageAvatar pic;
     // End of variables declaration//GEN-END:variables
 }

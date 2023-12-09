@@ -1,4 +1,4 @@
-package swing;
+package com.raven.swing;
 
 import event.EventMenu;
 import event.EventMenuSelected;

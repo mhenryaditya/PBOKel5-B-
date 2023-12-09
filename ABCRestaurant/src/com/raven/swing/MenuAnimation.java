@@ -1,4 +1,4 @@
-package swing;
+package com.raven.swing;
 
 import java.awt.Component;
 import net.miginfocom.swing.MigLayout;

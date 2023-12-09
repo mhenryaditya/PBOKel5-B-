@@ -1,4 +1,4 @@
-package swing;
+package com.raven.swing;
 
 import event.EventMenuSelected;
 import java.awt.Color;
@@ -77,7 +77,7 @@ public class PopupMenu extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel = new swing.PanelPopup();
+        panel = new com.raven.swing.PanelPopup();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -119,6 +119,6 @@ public class PopupMenu extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowLostFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private swing.PanelPopup panel;
+    private com.raven.swing.PanelPopup panel;
     // End of variables declaration//GEN-END:variables
 }
